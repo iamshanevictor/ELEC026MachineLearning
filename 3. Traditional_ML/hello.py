@@ -21,7 +21,7 @@ def determine_affixation(word):
     for prefix in prefixes:
         if word.startswith(prefix):
             return "unlapi"
-    
+        
     for infix in infixes:
         if infix in word:
             return "gitlapi"
@@ -29,13 +29,33 @@ def determine_affixation(word):
     for suffix in suffixes:
         if word.endswith(suffix):
             return "hulapi"
-    
+        
     return "kabilaan"  # If none of the above conditions are met, it's considered kabilaan.
 
+# Function to determine if a word contains both unlapi and hulapi
+def contains_both_unlapi_and_hulapi(word):
+    has_unlapi = False
+    has_hulapi = False
+    
+    for prefix in prefixes:
+        if word.startswith(prefix):
+            has_unlapi = True
+            break
+    
+    for suffix in suffixes:
+        if word.endswith(suffix):
+            has_hulapi = True
+            break
+    
+    return has_unlapi and has_hulapi
+
 # Check if it's a root word or not
-if determine_affixation(word) == "kabilaan":
+affixation_type = determine_affixation(word)
+if affixation_type == "kabilaan":
     print("Not a Root Word!")
-    print("Panlapi:", determine_affixation(word))
+    print("Panlapi:", affixation_type)
+elif contains_both_unlapi_and_hulapi(word):
+    print("Contains both unlapi and hulapi!")
 else:
     print("Root Word!")
-    print("Panlapi:", determine_affixation(word))
+    print("Panlapi:", affixation_type)
